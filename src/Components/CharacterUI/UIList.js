@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import Character from './Character';
-import Pagination from './Pagination';
+import UICharacter from './UICharacter';
+import UIPagination from './UIPagination';
+import Pagination from '@mui/material/Pagination';
 import '../../index.css';
 
 export default function List() {
     const [characters, setCharacter] = useState([]);
     const [loading,setLoading] = useState(true);
-    
+    const [currentPage,setCurrentPage] = useState(1);
     const [currentPageUrl,setCurrentPageUrl] = useState("https://rickandmortyapi.com/api/character");
     const [nextPageUrl,setNextPageUrl] = useState();
     const [prevPageUrl, setPrevPageUrl] = useState();
@@ -42,9 +43,10 @@ export default function List() {
     }
 
     const goToPage = (num) => {
+        setCurrentPage(num);
         setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${num}`);
     }
-
+    
     if(loading)
         return (<div className="loading">Loading...</div>)
 
@@ -52,18 +54,15 @@ export default function List() {
         <div>
             <h2>Characters</h2>
             <div><Pagination 
-                nextPage={nextPage}
-                prevPage={prevPage}
-                nextPageUrl ={nextPageUrl}
-                prevPageUrl ={prevPageUrl}
-                pages = {pages}
-                goToPage ={goToPage}
-                
-                /></div>
-                <div className="row">
+                style ={{display: "flex",justifyContent:"center"}}
+                page = {currentPage}
+                count={pages}
+                onChange={(e,page)=>goToPage(page)}
+            /></div>
+            <div className="row">
                 {
                 characters.map((character) => (
-                    <Character
+                    <UICharacter
                         key={character.id}
                         name={character.name}
                         origin={character.origin}
@@ -72,15 +71,12 @@ export default function List() {
                 ))
                 }
                 <div><Pagination 
-                nextPage={nextPage}
-                prevPage={prevPage}
-                nextPageUrl ={nextPageUrl}
-                prevPageUrl ={prevPageUrl}
-                pages = {pages}
-                goToPage ={goToPage}
-                
-                /></div>
+                style ={{display: "flex",justifyContent:"center"}}
+                page = {currentPage}
+                count={pages}
+                onChange={(e,page)=>goToPage(page)}
+            /></div>
             </div>
-            </div>
+        </div>
     )
 }

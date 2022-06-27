@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Pagination({nextPage,prevPage,goToPage,pages,prevPageUrl,nextPageUrl}) {
+function Pagination({nextPage,prevPage,goToPage,pages}) {
   
     let pageButtons = [];
     for(let i = 1; i <= pages; i++){
@@ -13,9 +13,9 @@ function Pagination({nextPage,prevPage,goToPage,pages,prevPageUrl,nextPageUrl}) 
 
     return (
     <div>
-        {prevPageUrl && (<button onClick= {prevPage}>←</button>)}
+        {prevPage && (<button onClick= {prevPage}>←</button>)}
         {pageButtons}
-        {nextPageUrl && (<button onClick= {nextPage}>→</button>)}
+        {nextPage && (<button onClick= {nextPage}>→</button>)}
     </div>
   );
 }
