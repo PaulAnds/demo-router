@@ -6,7 +6,6 @@ import '../../index.css';
 export default function List() {
     const [characters, setCharacter] = useState([]);
     const [loading,setLoading] = useState(true);
-    
     const [currentPageUrl,setCurrentPageUrl] = useState("https://rickandmortyapi.com/api/character");
     const [nextPageUrl,setNextPageUrl] = useState();
     const [prevPageUrl, setPrevPageUrl] = useState();
